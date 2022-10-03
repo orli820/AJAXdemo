@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "First";
+}
+
+<h1>First Ajax</h1>
+<div id="div1"></div>
+@section Scripts{
+    <script>
+        const theDiv =document.querySelector("#div1")
+
+    //步驟一建立Ajax物件
+        const xhr = new XMLHttpRequest()
+
+    //步驟二發出要求
+        xhr.open("GET","/api/index"); //呼叫api下的index
+        xhr.send();                   //什麼時候呼叫結果
+
+    //步驟三接收資料
+        //要確定資料有從伺服器端回傳，load事件表示資料已經回傳了
+        xhr.addEventListener("load", () => {
+            //接收資料
+            const data = xhr.responseText
+            //顯示資料
+            //theDiv.textContent=data
+            //"<h3>"+data+"</h3>"
+            theDiv.innerHTML=`<h3>${data}</h3>`
+        })
+        
+    </script>
+}

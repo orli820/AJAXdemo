@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Styles{
+    <style>
+        h1 {
+            color: green;
+        }
+    </style>
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+
+    <ul id="ul1">
+        <li>Jack</li>
+        <li>Jack</li>
+        <li>Jack</li>
+    </ul>
+
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+
+
+@*View 中的Java Scripts、JQery要放在section中*@
+@*名字跟在layout那邊宣告的名字一樣*@
+@section Scripts{
+    <script>
+        //console.log("Hello JSON!!")
+
+        // 找標籤的內容 
+        //console.log($('.display-4').text())
+
+
+
+        //let items=["a","b","c"]陣列
+        //items[1] =>b
+
+        //let user={"name":"Jack","key":"value"}物件
+        //user.name =>Jack
+        //user.key  =>value
+
+        //emps  =>array or object?  =>array
+        //var emps = [{ "name": "Tom", "workYears": 3, "salary": 35000 },
+        //            { "name": "Jack", "workYears": 5, "salary": 40000 },
+        //            { "name": "Mary", "workYears": 7, "salary": 45000 }];
+
+
+        ////emps[1] => { "name": "Jack", "workYears": 5, "salary": 40000 } => object
+        ////emps[1].salary =>40000
+        //console.log(emps[0].name);
+        //console.log(emps[2].workYears);
+
+        ////讀出所有資料要寫迴圈
+        //for (let i = 0, max = emps.length; i < max; i++) {
+        //    console.log(emps[i].name);
+        //    console.log(emps[i].workYears);
+        //    console.log(emps[i].salary);          
+        //}
+
+        //練習讀取資料
+        var emp = {
+            "employees": [
+                { "name": "Tom", "workYears": 3, "salary": 35000 },
+                { "name": "Jack", "workYears": 5, "salary": 40000 },
+                { "name": "Mary", "workYears": 7, "salary": 45000 }
+            ]
+        };
+
+        const theUl = document.querySelector("#ul1")            //放回圈內效能差
+        //建立一個空物件  增加效能
+        const docFrag = document.createDocumentFragment();
+
+        for (let i = 0, max = emp.employees.length; i < max; i++) {
+            //console.log(emp.employees[i].name);
+            //console.log(emp.employees[i].workYears);
+            //console.log(emp.employees[i].salary);
+
+
+            //結構賦值 Destructing Assignment  快速把物件或陣列資料加入物件中
+            const { name,workYears,salary} = emp.employees[i]
+
+            //資料顯示 DOM  抓ul標籤內容
+            //const txtLi = document.createTextNode(emp.employees[i].name) //建立文字節點
+            const txtLi = document.createTextNode(name + "," + workYears + "," + salary)                    //結構賦值
+            const eleLi = document.createElement("li")                   //建立元素節點 <li></li>
+            eleLi.appendChild(txtLi)                                     // <li>Jack</li>
+
+            //theUl.appendChild(eleLi);                                    //跑錯誤訊息可能不是方法的問題，是前面theUl沒有抓到
+            docFrag.appendChild(eleLi);  //加入空物件中
+        }
+        theUl.appendChild(docFrag); 
+       
+    </script>
+}
+

@@ -1,4 +1,5 @@
 ﻿using AJAXdemo.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -32,6 +33,27 @@ namespace AJAXdemo.Controllers
         {
             return View();
         }
+
+        public IActionResult Get()
+        {
+            return View();
+        }
+
+        public IActionResult AjaxEvent()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+
+
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

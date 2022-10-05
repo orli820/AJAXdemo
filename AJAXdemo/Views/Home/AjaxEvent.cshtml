@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewData["Title"] = "AjaxEvent";
+}
+
+@section Styles{
+    <style>
+        #img1 {
+            display: none;
+        }
+    </style>
+
+}
+
+<h1>AjaxEvent</h1>
+<button class="btn btn-primary m-1" id="btnStart">Start</button>
+<button class="btn btn-primary m1" id="btnStop">Stop</button>
+<img src="~/images/Plant.gif" id="img1" />
+<div id="div1" class="alert alert-primary" role="alert"></div>
+
+@section Scripts{
+    <script>
+        const btnStart = document.querySelector("#btnStart");
+        const btnStop = document.querySelector("#btnStop");
+        const imgLoading = document.querySelector("#img1")
+        const divMessage = document.querySelector("#div1");
+        const xhr = new XMLHttpRequest();
+
+        btnStart.addEventListener("click", () => {
+            //Ajax程式
+
+            xhr.addEventListener("load", () => {
+                //const data = xhr.responseText();
+                console.log("load")
+            })
+
+            xhr.addEventListener("loadstart", () => {
+                console.log("Ajax開始");
+                btnStart.textContent = "Loading"
+                btnStart.setAttribute("disabled", "disabled")
+                imgLoading.style.display = "inline"
+
+            })
+            xhr.addEventListener("loadend", () => {
+                console.log("Ajax結束");
+                btnStart.textContent = "Start"
+                btnStart.removeAttribute("disabled")
+                imgLoading.style.display = "none"
+
+            })
+
+            //timeout事件
+            xhr.addEventListener("timeout", () => {
+                console.log("timeout")
+                divMessage.textContent = "伺服器忙碌中...請稍後";
+            })
+
+            //timeout事件
+            xhr.addEventListener("abort", () => {
+                console.log("abort")
+                divMessage.textContent = "您停止了Ajax的執行";
+            })
+
+            xhr.open("GET", "@Url.Content("~/api/sleep")") //http網址列不分大小寫
+            xhr.timeout = 3000;
+            xhr.send();
+
+            //如果不放在最後面，會造成事件無法被綁定，所以習慣這兩句放在最後面
+        })
+
+        //停止ajax執行
+        btnStop.addEventListener("click", () => {
+            xhr.abort(); //停止執行
+        })
+
+    </script>
+}
+

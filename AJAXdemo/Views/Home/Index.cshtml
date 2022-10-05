@@ -20,6 +20,9 @@
     </ul>
 
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <img src="~/images/Plant.gif" />    @*   "~"指向專案的根目錄  *@
+    <img src="images/Plant.gif" />      @*不會出現圖片，相對路徑*@
+    <img src="/images/Plant.gif" />     @*根的絕對路徑*@   @*   "/" 代表"wwwroot (iis的路徑)" ，不要用這種方式寫，佈署到網路上會出錯  *@
 </div>
 
 

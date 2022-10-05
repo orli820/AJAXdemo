@@ -13,7 +13,9 @@
         const xhr = new XMLHttpRequest()
 
     //步驟二發出要求
-        xhr.open("GET","/api/index"); //呼叫api下的index
+        //用下列兩種方法取得路徑
+        console.log("@Url.Content("~/api/index")")
+        xhr.open("GET","@Url.Content("~/api/index")"); //呼叫api下的index
         xhr.send();                   //什麼時候呼叫結果
 
     //步驟三接收資料
@@ -26,6 +28,6 @@
             //"<h3>"+data+"</h3>"
             theDiv.innerHTML=`<h3>${data}</h3>`
         })
-        
+
     </script>
 }

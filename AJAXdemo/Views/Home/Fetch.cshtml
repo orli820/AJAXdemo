@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "Fetch";
+}
+
+<h1>Fretch</h1>
+<div class="alert alert-primary" id="div1"></div>
+<img id="img1" />
+<select id="opt1"></select>
+@section Scripts{
+    <script>
+        //console.log(fetch("@Url.Content("~/api/index")"))
+
+        //從promise物件取出物件要透過then方法
+        @*fetch("@Url.Content("~/api/index")")
+            .then(response => {
+                //以下是練習 實際不用寫這麼多
+                console.log(response)
+                console.log(response.ok)
+                console.log(response.status)
+                console.log("content-encoding")
+                console.log("content-Type")
+                console.log("date")
+                console.log(response.body)      //伺服器回應的資料在body中
+                console.log(response.text())    //回傳的也是promise物件
+                    return response.text()      //把內容傳送到下一個then中
+
+                //確認伺服器執行程式沒有問題
+                //if (response.ok) {
+
+                //}
+                //else
+                //    console.log(response.status)
+            })*@
+
+
+        const theediv = document.querySelector("#div1")
+        const img = document.querySelector("#img1")
+        const theopt = document.querySelector("#opt1")
+
+        //如果then裡面加大括號 要加return    .then(response => {return response.text()})
+        fetch("@Url.Content("~/api/index")")
+            .then(response => response.text())
+            .then(data => theediv.textContent = data)
+            .catch(err => console.log(err));
+
+        //取出二進位資料使用blob
+        fetch("@Url.Content("~/members/showphoto/3")")
+            .then(response => response.blob())
+            .then(datas => img.src = URL.createObjectURL(datas));
+
+        @* fetch("@Url.Content("~/api/city")")
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(city => {
+                    const opt = new Option(city, city)
+                    theopt.options.add(opt)
+                })
+            }) *@
+
+
+
+
+
+        async function LoadCity()
+        {
+            let response = await fetch("@Url.Content("~/api/city")");
+            let data = await response.json();
+            data.forEach(city => {
+                const opt = new Option(city, city)
+                theopt.options.add(opt)
+            })
+        }
+                LoadCity()
+    </script>
+}

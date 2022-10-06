@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewData["Title"] = "Address";
+}
+
+<h1>Address</h1>
+<select id="sel1">
+    @*<option value="a">text</option> value指定如果選了該選項，表單要傳送什麼值給遠端伺服器，如果沒設定 value，預設是送 <option> 的內容
+        <option value="b">2</option>
+        <option value="c">3</option>*@
+</select>
+<select id="sel2">
+</select>
+<select id="sel3">
+</select>
+
+@section Scripts{
+    <script>
+        const selCity = document.querySelector("#sel1")
+        const selSite = document.querySelector("#sel2")
+        const selRoad = document.querySelector("#sel3")
+        //會產生option的集合，視為物件
+
+        selCity.addEventListener("change", () => {
+            //
+            //console.log(selCity.selectedIndex);
+            //顯示城市名
+            console.log(selCity.options[selCity.selectedIndex].value)
+        })
+
+        //------------------------------------------------------------------
+
+
+        //step1
+        const xhr = new XMLHttpRequest();
+
+        //step3
+        xhr.addEventListener("load", () => {
+            //伺服器端傳回JSON字串，要轉成JSON物件才能使用
+            //const data = xhr.responseText;
+            //console.log(data.length);
+            //console.log(JSON.parse(data).length)  //JSON.parse=>字串轉物件  JSON.stringify=>物件轉字串
+            //--------------------上面改寫成下面------------------------
+            const datas = JSON.parse(xhr.responseText)
+
+             //step4 讀取資料
+            datas.forEach(city => {
+                const opt = new Option(city, city)
+                selCity.options.add(opt)
+                //console.log(datas)
+            })
+            //=====================================
+
+            const city = selCity.options[selCity.selectedIndex].value
+            console.log(city)
+
+            const xhrRoad = new XMLHttpRequest();
+
+            xhrRoad.addEventListener("load", () => {
+                const datas = JSON.parse(xhrRoad.responseText)
+
+                datas.forEach(site => {
+                    const opt = new Option(site, site)
+                    selSite.options.add(opt)
+                })
+
+            }
+
+         //step2
+        xhrRoad.open("GET", "@Url.Content("~/api/site")?city=嘉義市");
+        xhrRoad.send();
+
+        })
+        //回傳被選擇的項目是什麼city
+       
+
+
+
+
+
+       
+         //step2
+        xhr.open("GET", "@Url.Content("~/api/city")");
+        xhr.send();
+    </script>
+}

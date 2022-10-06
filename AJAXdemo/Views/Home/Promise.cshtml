@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewData["Title"] = "Promise";
+}
+
+<h1>Promise</h1>
+@section Scripts{
+    <script>
+        //建立promise物件  程式沒問題呼叫  ->  resovle, 程式有問題呼叫  ->  reject常用變數名稱
+        //非同步執行
+        //亂數
+        //const promise = new Promise((resovle, reject) => {
+        //    const nim = Math.random() > 0.5 ? 1 : 0
+        //    console.log(num)
+        //    if (num) {
+        //        resovle("成功")
+        //    }
+        //    else {
+        //        reject("失敗")
+        //    }
+        //})
+        ////then方法有兩個參數  一個代表成功一個是失敗
+        ////常用方法 then代表成功，catch到錯誤
+
+        ////使用promise
+        //promise
+        //    .then(result => console.log(result))
+        //    .catch(err => console.log(err))
+        //    .finally(() => console.log("end"));
+
+        //-------------------------------------------------------------------------------------------------------
+
+        function printsth(data) {
+            const promise = new Promise((resolve, reject) => {
+                setTimeout(() => { resolve(data), 1000 })
+            })
+            return promise;
+        }
+
+        printsth("A")
+            .then(data => {
+                console.log(data)
+                return printsth("B")
+            })
+            .then(data => {
+                console.log(data)
+                return printsth("C")
+            })
+            .then(data => {
+                console.log(data)
+            })
+
+
+    </script>
+
+
+    @* 查看能不能使用 *@
+    @*https://caniuse.com/*@
+    @*
+        JavaScript
+        XMLHTTPRequest
+        XMLHTTPRequest API
+        XMLHTTPRequest Advenced features(上課教)
+
+        Fetch:A mordern replacement for XMLHTTPRequest =>以這個為主
+    *@
+
+}

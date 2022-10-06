@@ -49,11 +49,22 @@ namespace AJAXdemo.Controllers
             return View();
         }
 
+        //下拉式選單顯示縣市
+        public IActionResult Address()
+        {
+            return View();
+        }
 
+        public IActionResult Promise()
+        {
+            return View();
+        }
 
-
-
-
+        //Fretch方法是全域變數
+        public IActionResult Fetch()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

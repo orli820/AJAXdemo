@@ -46,15 +46,27 @@
 
             const formData = new FormData(document.userInfo);//將userInfo表單中的資料放到formData變數中  新寫法
 
-            const xhr = new XMLHttpRequest()
 
-            xhr.addEventListener("load", () => {
-                const data = xhr.responseText
-                divMessage.textContent = data
+            ////XMLHttpRequest將資料傳到伺服器
+            //const xhr = new XMLHttpRequest()
+
+            //xhr.addEventListener("load", () => {
+            //    const data = xhr.responseText
+            //    divMessage.textContent = data
+            //})
+
+            //xhr.open("POST", document.userInfo.action) //"/api/register" 第一個參數POST 第二個參數action屬性
+            //xhr.send(formData)
+
+
+            //Fetch方法將資料傳到伺服器
+            fetch(document.userInfo.action, {
+                method: "Post",
+                body: formData,
             })
+                .then(response => response.text())
+                .then(data => divMessage.textContent = data)
 
-            xhr.open("POST", document.userInfo.action) //"/api/register" 第一個參數POST 第二個參數action屬性
-            xhr.send(formData)
 
         })
     </script>

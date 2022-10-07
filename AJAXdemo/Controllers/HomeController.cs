@@ -66,6 +66,32 @@ namespace AJAXdemo.Controllers
             return View();
         }
 
+
+        public IActionResult History()
+        {
+            return View();
+        }
+
+        public IActionResult jQuery()
+        {
+            return View();
+        }
+
+        public IActionResult ShipperCors()
+        {
+            return View();
+        }
+
+        public IActionResult ShipperCorsEmpty()
+        {
+            return View();
+        }
+
+
+        public IActionResult AutoComplete()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

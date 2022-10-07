@@ -16,21 +16,50 @@
 @section Scripts{
     <script>
         $('#buttonGet').click(function () {
-            $('#divAlert').text("GET")
+
+            $.get('@Url.Content("~/api/index")', { "keyword": "Jack" }, function (data) {
+                $('#divAlert').text(data)})
         })
         $('#buttonPost').click(function () {
-            $('#divAlert').text("POST")
+            $.post('@Url.Content("~/api/index")', { "keyword": "Mary" }, function (data) {
+                $('#divAlert').text(data)})
         })
         $('#buttonJson').click(function () {
-            $('#divAlert').text("JSON")
+            $.getJSON('@Url.Content("~/api/site")', { "city": "臺北市" }, function (data) {
+                $.each(data, function (idx, site) {   //function( 索引值, 參數=要讀的資料 )
+                    console.log(site)
+                    //$('#divAlert').text(site)
+                })
+
+            })
+            $('#divAlert').text(site)
         })
         $('#buttonLoad').click(function () {
             $('#divAlert').text("LOAD")
         })
         $('#buttonAjax').click(function () {
-            $('#divAlert').text("AJAX")
+            $.ajax({
+                url:'@Url.Content("~/api/site")',
+                type: 'GET',
+                data: { "city": "桃園市" },  //key要跟上面Url呼叫的action方法的參數名稱一致
+                dataType:'JSON'
+            }).done(data => {
+                //轉格式
+                let demo = ""
+                $.each(data, function (idx, site) {
+                    demo += `<tr><td>${site}</td></tr>`
+                    console.log(site)
+                })
+               
+                $('#divAlert').html(demo)
+            })
+            
         })
         $('#buttonCors').click(function () {
+            $.getJSON('https://localhost:44391/api/shippers', {}, function (datas) {
+                console.log(datas)
+            })
+
             $('#divAlert').text("CORs")
         })
 
